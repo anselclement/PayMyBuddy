@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer</title>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+    <div th:replace="menu"></div>
+
+    <div class="container">
+        <h3 class="d-inline-block">Send Money</h3>
+        <a th:href="@{/home/contact}" type="button"  class="btn btn-primary float-right">Add Connection</a>
+
+        <div class="container bg-light">
+            <form class="form-inline justify-content-center" method="post" th:action="@{/saveTransaction}">
+                <select class="form-control" name="connection">
+                    <option>Select A Connection</option>
+                    <option th:each="connection :${userConnections}" th:value="${connection}" th:text="${connection}"></option>
+                </select>
+                <input class="form-control" type="number" name="amount" th:min="0" th:max="${userWallet}" placeholder="0€">
+                <button class="btn btn-success" type="submit">Pay</button>
+            </form>
+        </div>
+    </div>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+</body>
+</html>

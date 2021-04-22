@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Add contact</title>
+  <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+  <div th:replace="menu"></div>
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Mail</th>
+        <th>Suppression</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${listContact.empty}">
+        <td colspan="3">No contact saved</td>
+      </tr>
+      <tr th:each="contact: ${listContact}">
+        <td><span th:text="${contact.firstName}"> Nom </span></td>
+        <td><span th:text="${contact.lastName}"> Prénom </span></td>
+        <td><span th:text="${contact.mail}"> Mail </span></td>
+        <td>
+          <a th:href="@{/deleteContact/{id}(id=${contact.id})}"><button class="btn btn-danger">Delete</button></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <form method="post" th:action="@{/addContact}">
+      <div class="form-group">
+        <label for="mail">Mail</label>
+        <input type="text" id="mail" name="mail" class="form-control" placeholder="Enter the email address of the person you want to add" required>
+      </div>
+      <button type="submit" class="btn btn-primary"  value="Login">Add</button>
+    </form>
+
+  </div>
+
+
+</body>
+</html>
