@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <title>Profile</title>
+  <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
   <div th:replace="menu"></div>
-
-  </div>
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page">Home</li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+      </ol>
+    </nav>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Nom du compte</th>
+        <th>Numéro</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${listBankAccount.empty}">
+        <td colspan="3">No bank account saved</td>
+      </tr>
+      <tr th:each="bankAccount: ${listBankAccount}">
+        <td><span th:text="${bankAccount.name}"> Nom du compte </span></td>
+        <td><span th:text="${bankAccount.number}"> Numéro du compte </span></td>
+        <td>
+          <a th:href="@{/deleteBankAccount/{id}(id=${bankAccount.id})}"><button class="btn btn-danger">Delete</button></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <form method="post" th:action="@{/addBankAccount}">
+      <div class="form-group">
+        <label for="name">Nom du compte</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Enter the name of the bank account" required>
+      </div>
+      <div class="form-group">
+        <label for="number">Numéro de compte</label>
+        <input type="text" id="number" name="number" class="form-control" placeholder="Enter the number of the bank account" required>
+      </div>
+      <button type="submit" class="btn btn-primary"  value="Login">Add</button>
+    </form>
+</div>
 </body>
 </html>
