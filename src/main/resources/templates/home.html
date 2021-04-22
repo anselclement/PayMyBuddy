@@ -7,6 +7,11 @@
 <body>
   <div th:replace="menu"></div>
   <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+      </ol>
+    </nav>
     <h1>Bienvenue sur votre page personnelle <span sec:authentication="principal.firstName">FirstName</span></h1>
   </div>
 </body>

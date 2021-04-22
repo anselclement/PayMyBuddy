@@ -1,10 +1,12 @@
 package com.PayMyBuddy.models;
 
 import lombok.Data;
+import lombok.Generated;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -31,4 +33,31 @@ public class UserConnection {
     @Email
     @NotBlank(message = "Please enter your email address")
     private String mail;
+
+    @Override
+    @Generated
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserConnection that = (UserConnection) o;
+        return id == that.id && Objects.equals(user_id, that.user_id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(mail, that.mail);
+    }
+
+    @Override
+    @Generated
+    public int hashCode() {
+        return Objects.hash(id, user_id, firstName, lastName, mail);
+    }
+
+    @Override
+    @Generated
+    public String toString() {
+        return "UserConnection{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }
