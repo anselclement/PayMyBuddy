@@ -1,0 +1,20 @@
+.btn-grad {
+    background-image: linear-gradient(to right, #56ab2f 0%, #a8e063  51%, #56ab2f  100%)
+}
+
+.btn-grad {
+    padding: 10px 30px;
+    text-align: center;
+    background-size: 200% auto;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+}
+
+.text-white{
+    color:white;
+}
+
+select,button{
+    margin:0 25px;
+}
