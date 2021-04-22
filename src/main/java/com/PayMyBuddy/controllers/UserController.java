@@ -1,9 +1,12 @@
 package com.PayMyBuddy.controllers;
 
+import com.PayMyBuddy.models.BankAccount;
 import com.PayMyBuddy.models.Transaction;
 import com.PayMyBuddy.models.User;
 import com.PayMyBuddy.models.UserConnection;
 import com.PayMyBuddy.security.MyUserDetails;
+import com.PayMyBuddy.services.BankAccountService;
+import com.PayMyBuddy.services.TransactionService;
 import com.PayMyBuddy.services.UserConnectionService;
 import com.PayMyBuddy.services.UserService;
 import org.slf4j.Logger;
@@ -16,8 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +33,12 @@ public class UserController {
 
     @Autowired
     private UserConnectionService userConnectionService;
+
+    @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
+    private BankAccountService bankAccountService;
 
     @GetMapping("/home")
     public String home(){
@@ -55,6 +62,10 @@ public class UserController {
 
     @GetMapping("/home/profile")
     public String userProfile(@AuthenticationPrincipal MyUserDetails userDetails, Model model){
+        String userMail = userDetails.getUsername();
+        User user = userService.getUserByEmail(userMail);
+        List<BankAccount> listUserBankAccount= bankAccountService.getAllUserBankAccountById(user.getId());
+        model.addAttribute("listBankAccount",listUserBankAccount);
         return "profile";
     }
 
@@ -62,10 +73,14 @@ public class UserController {
     public String transfer(@AuthenticationPrincipal MyUserDetails userDetails, Model model){
         String userMail = userDetails.getUsername();
         User user = userService.getUserByEmail(userMail);
-        float userWallet = user.getWallet();
+        double userWallet = user.getWallet();
         model.addAttribute("userWallet", userWallet);
         List<UserConnection> listUserContact = userConnectionService.getAllUserContactById(user.getId());
         model.addAttribute("listContact",listUserContact);
+        List<BankAccount> listUserBankAccount = bankAccountService.getAllUserBankAccountById(user.getId());
+        model.addAttribute("listBankAccount", listUserBankAccount);
+        List<Transaction> listUserTransaction = transactionService.getAllUserTransactionById(user.getId());
+        model.addAttribute("listTransactions", listUserTransaction);
         return "transfer";
     }
 

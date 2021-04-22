@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,7 @@ public class UserConnectionController {
     private UserService userService;
 
     @PostMapping("/addContact")
-    public String saveContact(@RequestParam(value = "mail") @Valid String mail, @AuthenticationPrincipal MyUserDetails userDetails){
+    public String saveContact(@RequestParam(value = "mail") String mail, @AuthenticationPrincipal MyUserDetails userDetails){
         String userMail = userDetails.getUsername();
         User user = userService.getUserByEmail(userMail);
         User getInfoContact = userService.getUserByEmail(mail);
