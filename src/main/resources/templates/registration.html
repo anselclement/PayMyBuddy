@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay My Buddy</title>
+  <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" th:rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenue sur la page d'inscription :</h1>
+    <form method="post"
+          th:action="@{/user_registration}" th:object="${user}">
+      <div class="fom-group">
+        <input
+                type="hidden" th:field="*{id}" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="prénomInput">Prénom</label>
+        <input
+                type="text" th:field="*{firstName}" class="form-control" id="prénomInput"
+                aria-describedby="prénomHelp" placeholder="Saisir votre prénom">
+        <small id="prénomHelp" class="form-text text-muted">Merci d'inscrire votre prénom</small>
+        <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+      </div>
+      <div class="form-group">
+        <label for="nomInput">Nom</label>
+        <input
+                type="text" th:field="*{lastName}" class="form-control" id="nomInput"
+                aria-describedby="nomHelp" placeholder="Saisir votre nom">
+        <small id="nomHelp" class="form-text text-muted">Merci d'inscrire votre nom</small>
+        <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+      </div>
+      <div class="form-group">
+        <label for="mailInput">Mail</label>
+        <input
+                type="text" th:field="*{mail}" class="form-control" id="mailInput"
+                aria-describedby="mailHelp" placeholder="Saisir votre adresse mail">
+        <p class="text-danger" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></p>
+        <small id="mailHelp" class="form-text text-muted">Merci d'inscrire votre mail</small>
+      </div>
+      <div class="form-group">
+        <label for="passwordInput">Mot de passe</label>
+        <input
+                type="text" th:field="*{password}" class="form-control" id="passwordInput"
+                aria-describedby="passwordHelp" placeholder="Saisir votre adresse mot de passe">
+        <small id="passwordHelp" class="form-text text-muted">Merci d'inscrire votre mot de passe</small>
+        <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+      </div>
+      <button type="submit" class="btn btn-primary">Inscription</button>
+    </form>
+  </div>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
