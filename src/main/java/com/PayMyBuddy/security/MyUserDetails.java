@@ -38,7 +38,7 @@ public class MyUserDetails implements UserDetails {
         return user.getLastName();
     }
 
-    public int getWallet() {
+    public float getWallet() {
         return user.getWallet();
     }
 

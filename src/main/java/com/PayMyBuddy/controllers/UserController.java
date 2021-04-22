@@ -60,6 +60,12 @@ public class UserController {
 
     @GetMapping("/home/transfer")
     public String transfer(@AuthenticationPrincipal MyUserDetails userDetails, Model model){
+        String userMail = userDetails.getUsername();
+        User user = userService.getUserByEmail(userMail);
+        float userWallet = user.getWallet();
+        model.addAttribute("userWallet", userWallet);
+        List<UserConnection> listUserContact = userConnectionService.getAllUserContactById(user.getId());
+        model.addAttribute("listContact",listUserContact);
         return "transfer";
     }
 

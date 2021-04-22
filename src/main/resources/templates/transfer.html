@@ -16,7 +16,7 @@
             <form class="form-inline justify-content-center" method="post" th:action="@{/saveTransaction}">
                 <select class="form-control" name="connection">
                     <option>Select A Connection</option>
-                    <option th:each="connection :${userConnections}" th:value="${connection}" th:text="${connection}"></option>
+                    <option th:each="contact :${listContact}" th:value="${contact.mail}" th:text="${contact.mail}"></option>
                 </select>
                 <input class="form-control" type="number" name="amount" th:min="0" th:max="${userWallet}" placeholder="0€">
                 <button class="btn btn-success" type="submit">Pay</button>

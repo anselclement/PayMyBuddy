@@ -33,9 +33,9 @@ public class User{
     @NotBlank(message = "Please enter your password")
     private String password;
 
-    @Column(name = "wallet", nullable = false, columnDefinition = "int default 0")
+    @Column(name = "wallet", nullable = false, columnDefinition = "Decimal(10,2) default '0.00'")
     @Min(0)
-    private int wallet;
+    private float wallet;
 
     @OneToMany(mappedBy = "user_id")
     List<UserConnection> connections;
