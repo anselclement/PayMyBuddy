@@ -9,20 +9,47 @@
     <div th:replace="menu"></div>
 
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">Home</li>
+                <li class="breadcrumb-item active" aria-current="page">Transfer</li>
+            </ol>
+        </nav>
         <h3 class="d-inline-block">Send Money</h3>
         <a th:href="@{/home/contact}" type="button"  class="btn btn-primary float-right">Add Connection</a>
 
         <div class="container bg-light">
             <form class="form-inline justify-content-center" method="post" th:action="@{/saveTransaction}">
-                <select class="form-control" name="connection">
-                    <option>Select A Connection</option>
+                <select class="form-control" name="connection" required>
+                    <option value="" disabled selected>Select A Connection</option>
                     <option th:each="contact :${listContact}" th:value="${contact.mail}" th:text="${contact.mail}"></option>
                 </select>
-                <input class="form-control" type="number" name="amount" th:min="0" th:max="${userWallet}" placeholder="0€">
+                <input class="form-control" type="number" name="amount" step=".01" th:min="0" th:max="${userWallet}" placeholder="0€" required>
+                <input class="form-control" type="text" name="description" required>
                 <button class="btn btn-success" type="submit">Pay</button>
             </form>
         </div>
     </div>
+
+    <div class="container">
+        <h3 class="d-inline-block">Add Money</h3>
+        <a th:href="@{/home/profile}" type="button"  class="btn btn-primary float-right">Add bank account</a>
+
+        <div class="container bg-light">
+            <form class="form-inline justify-content-center" method="post" th:action="@{/saveTransactionBankAccount}">
+                <select class="form-control" name="name" required>
+                    <option value="" disabled selected>Select A Connection</option>
+                    <option th:each="bankaccount :${listBankAccount}" th:value="${bankaccount.name}" th:text="${bankaccount.name}" ></option>
+                </select>
+                <input class="form-control" type="number" name="amount" step=".01" placeholder="0€" required>
+                <input class="form-control" type="text" name="description" required>
+                <button class="btn btn-success" type="submit">Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="transaction"></div>
+
     <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 </body>
