@@ -2,6 +2,7 @@ package com.PayMyBuddy.security;
 
 import com.PayMyBuddy.models.User;
 import com.PayMyBuddy.models.UserConnection;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
